@@ -326,16 +326,9 @@
         > Example is in the `fundamentals-bicep` folder
     - There are certain resources where you also can define the scope directly on the resource (meaning it doesn't need to be a module)
 
-- Example Fundamentals Deployment
-> Review the folder `fundamentals-bicep` and run the following to deploy:
-
-```bash
-# deploy nonprod env
-az deployment sub create --template-file main.bicep --parameters environmentType=nonprod --location eastus
-```
-
 - [Child Resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/child-resource-name-type)
-> Only exist in the context of another resource
+
+    > Only exist in the context of another resource
 
     - Format (Within Parent Resource):
 
@@ -393,9 +386,10 @@ az deployment sub create --template-file main.bicep --parameters environmentType
     ```
 
 - [Extension Resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/scope-extension-resources)
-> Resource that modifies another resource. They are always attached to other resources
-> Examples include: Role Assignments, Policy Assignments, Locks, Diagnostic Settings
-> [Full List of Extension Resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/extension-resource-types)
+
+    > Resource that modifies another resource. They are always attached to other resources
+    > Examples include: Role Assignments, Policy Assignments, Locks, Diagnostic Settings
+    > [Full List of Extension Resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/extension-resource-types)
 
     - Example for Resource:
 
@@ -453,8 +447,9 @@ az deployment sub create --template-file main.bicep --parameters environmentType
     ```
 
 - [Existing Resources](https://docs.microsoft.com/en-us/learn/modules/child-extension-bicep-templates/6-work-with-existing-resources)
-> Refer to resources in bicep that may already exist and were created elsewhere
-> Think of it as a placeholder so you can reference this resource in other resources/deployments within your template
+
+    > Refer to resources in bicep that may already exist and were created elsewhere
+    > Think of it as a placeholder so you can reference this resource in other resources/deployments within your template
 
     - Example:
 
@@ -486,4 +481,13 @@ az deployment sub create --template-file main.bicep --parameters environmentType
         scope: resourceGroup('f0750bbe-ea75-4ae5-b24d-a92ca601da2c', 'networking-rg')
         name: 'toy-design-vnet'
     }
+    ```
+
+- Example Fundamentals Deployment:
+
+    > Review the folder `fundamentals-bicep` and run the following to deploy:
+
+    ```bash
+    # deploy nonprod env
+    az deployment sub create --template-file main.bicep --parameters environmentType=nonprod --location eastus
     ```
