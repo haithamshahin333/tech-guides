@@ -12,6 +12,11 @@
     - [Outputs](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/outputs?tabs=azure-powershell)
     - [Deployment Scripts](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-script-template)
     - [dependsOn](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/resource-dependency)
+    - [Deployment Modes](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes)
+        - For [Complete Mode](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes#complete-mode) be sure to recognize when/why you would want to do this since this will likely remove a resource that is not specified as part of your deployment
+        - For [Incremental Mode](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes#incremental-mode) be sure to understand that while resources not referenced will not be deleted, if certain properties are not defined for a resource that is being updated, then they may be overwritten to their defaults. If a resource is specified in a deployment, then all properties are reapplied, NOT incrementally added/updated.
+
+3. [ARM Template Reference for Bicep/ARM Templates](https://docs.microsoft.com/en-us/azure/templates/)
 
 ## Bicep Install
 
@@ -483,11 +488,34 @@
     }
     ```
 
+- [Deployment Scripts](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/deployment-script-bicep)
+
 - Example Fundamentals Deployment:
 
     > Review the folder `fundamentals-bicep` and run the following to deploy:
 
     ```bash
+    # try a what-if command
+    az deployment sub what-if \
+    --template-file ./fundamentals-bicep/main.bicep \
+    --parameters environmentType=nonprod \
+    --location eastus
+
     # deploy nonprod env
-    az deployment sub create --template-file main.bicep --parameters environmentType=nonprod --location eastus
+    az deployment sub create \
+    --template-file ./fundamentals-bicep/main.bicep \
+    --parameters environmentType=nonprod \
+    --location eastus
+
+    # what-if with parameters file
+    az deployment sub what-if \
+    --template-file ./fundamentals-bicep/main.bicep \
+    --parameters ./fundamentals-bicep/parameters.json \
+    --location eastus
+
+    # deploy with parameters file
+    az deployment sub create \
+    --template-file ./fundamentals-bicep/main.bicep \
+    --parameters ./fundamentals-bicep/parameters.json \
+    --location eastus
     ```
